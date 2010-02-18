@@ -1,0 +1,37 @@
+[github]
+	user = lassem
+	token = 2de4506a7cddcac0bf07f6d9b5829279
+[user]
+	name = Lasse Magnussen
+	email = lasse@magnussen.org
+
+[color]
+    ui = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = blue bold
+    changed = red
+    untracked = cyan
+[color]
+    ui = true
+[color "diff"]
+    whitespace = red reverse
+[core]
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+[alias]
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    lg = log -p
+
