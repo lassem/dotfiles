@@ -53,22 +53,22 @@ case "$TERM" in
 esac
     
 if [ "$color_prompt" = yes ]; then
-    echo -e "\033]P0000000" #black
-    echo -e "\033]P1ff6c60" #red
-    echo -e "\033]P2a8ff60" #green
-    echo -e "\033]P3ffff7a" #yellow
-    echo -e "\033]P496cbfe" #blue
-    echo -e "\033]P5ff73fe" #magenta
-    echo -e "\033]P6a8c5fe" #cyan
-    echo -e "\033]P7eeeeee" #white
-    echo -e "\033]P87c7c7c" #bright black
-    echo -e "\033]P9ff7ab0" #bright red
-    echo -e "\033]PAceffac" #bright green
-    echo -e "\033]PBffffcc" #bright yellow
-    echo -e "\033]PC7adcff" #bright blue
-    echo -e "\033]PDff9cfe" #bright magenta
-    echo -e "\033]PEdfdffe" #bright cyan
-    echo -e "\033]PFffffff" #bright white
+    echo -en "\033]P0000000" #black
+    echo -en "\033]P1ff6c60" #red
+    echo -en "\033]P2a8ff60" #green
+    echo -en "\033]P3ffff7a" #yellow
+    echo -en "\033]P496cbfe" #blue
+    echo -en "\033]P5ff73fe" #magenta
+    echo -en "\033]P6a8c5fe" #cyan
+    echo -en "\033]P7eeeeee" #white
+    echo -en "\033]P87c7c7c" #bright black
+    echo -en "\033]P9ff7ab0" #bright red
+    echo -en "\033]PAceffac" #bright green
+    echo -en "\033]PBffffcc" #bright yellow
+    echo -en "\033]PC7adcff" #bright blue
+    echo -en "\033]PDff9cfe" #bright magenta
+    echo -en "\033]PEdfdffe" #bright cyan
+    echo -en "\033]PFffffff" #bright white
 fi
 unset color_prompt
 
