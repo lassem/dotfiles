@@ -4,10 +4,8 @@
 "    $HOME/.vim/       on Linux
 " It will be run automatically on vim startup
 
-"set guifont=ProggyCleanTT:h11
 set number
-set lines=77
-set columns=120
+set numberwidth=4
 set tabstop=4
 set shiftwidth=4
 syntax on
@@ -21,10 +19,16 @@ set lbr               " Word wrap on
 set display+=lastline " Show the last line even though it flows out of the bottom
 let moria_fontface='mixed' " Use bold fonts
 colorscheme herald
-winpos 270 0
 let mapleader = ","   " Use , as <leader> (default \).
 set cursorline        " Highlight the line where the cursor is
 set scrolloff=3       " Try to keep three lines visible on top/bottom when scrolling
+
+if has("gui_running")
+ "set guifont=ProggyCleanTT:h11
+ set lines=77
+ set columns=120
+ winpos 270 0
+endif
 
 autocmd! FileType python                           " Remove all python autocmds
 autocmd  FileType python set suffixesadd+=.py       " Make 'gf' work on python import statements
