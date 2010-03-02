@@ -4,6 +4,7 @@
 "    $HOME/.vim/       on Linux
 " It will be run automatically on vim startup
 
+set nocompatible
 set number
 set numberwidth=4
 set tabstop=4
