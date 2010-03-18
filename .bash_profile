@@ -39,7 +39,7 @@ fi
 #   INFOPATH=${HOME}/info:${INFOPATH}
 # fi
 
-alias ls='ls -FG --color'
+alias ls='ls -F --color'
 alias ll='ls -l'
 alias bar='echo -e "\033[1;33;44m================================================================================\033[0m"'
 
