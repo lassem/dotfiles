@@ -28,6 +28,7 @@
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
 [alias]
+	cp = cherry-pick
     st = status
     ci = commit
     br = branch
