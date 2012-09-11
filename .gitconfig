@@ -4,34 +4,59 @@
 [user]
 	name = Lasse Magnussen
 	email = lasse@magnussen.org
-
-[color]
-    ui = auto
 [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
 [color "status"]
-    added = blue bold
-    changed = red
-    untracked = cyan
+	added = blue bold
+	changed = red
+	untracked = cyan
 [color]
-    ui = true
+	ui = auto
 [color "diff"]
-    whitespace = red reverse
+	whitespace = red reverse
 [core]
-    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-
+	crapwhitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	autocrlf = true
+	ignoreCygwinFSTricks = true
+	preloadindex = true
 [alias]
-    st = status
-    ci = commit
-    br = branch
-    co = checkout
-    df = diff
-    lg = log -p
-
+	cp = cherry-pick
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+	age = "log -1 --pretty=format:\"%ar\""
+	amend = commit --amend
+	# When "your branch is behind 'origin/whatever' by N commits, and can be fast-forwarded."
+	fast-forward = merge --ff-only @{u}
+	fixup = commit --fixup
+	# Show in which core integration point a commit reached master
+	integrated-by = !"do_ib(){ OBJ=\"$1\"; [ \"$1\" = \"\" ] && echo \"Ref not provided.\" && exit 1; git log --oneline --reverse --decorate --ancestry-path \"$OBJ..origin/master\" | grep -ao 'tag: core-integration-[[:digit:]]\\+' | head -n 1 | sed 's/tag: //'; }; do_ib"
+	# Rebase shorthands. Combines well with config --global rebase.autosquash true
+	rb = rebase -i
+	rbmb = !git rebase -i $(git merge-base origin/master HEAD)
+	rbm = rebase -i origin/master
+	rbu = rebase -i @{u}
+	# -uno excludes untracked files
+	st = status -uno
+	sta = status
+	# diff/log against tracked upstream branch
+	udiff = diff @{u}
+	ulog = log @{u}..
+[push]
+	default = tracking
+[branch]
+	autosetuprebase = remote
+[reviewboard]
+	url = http://codereview.oslo.osa
+[rebase]
+	autosquash = true
