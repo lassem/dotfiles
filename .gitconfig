@@ -3,7 +3,7 @@
 	token = 2de4506a7cddcac0bf07f6d9b5829279
 [user]
 	name = Lasse Magnussen
-	email = lasse@magnussen.org
+	email = lasse.magnussen@finn.no
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -23,9 +23,9 @@
 	whitespace = red reverse
 [core]
 	crapwhitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	autocrlf = true
-	ignoreCygwinFSTricks = true
+	autocrlf = input
 	preloadindex = true
+	excludesfile = $HOME/.gitignore_global
 [alias]
 	cp = cherry-pick
 	st = status
@@ -39,12 +39,11 @@
 	# When "your branch is behind 'origin/whatever' by N commits, and can be fast-forwarded."
 	fast-forward = merge --ff-only @{u}
 	fixup = commit --fixup
-	# Show in which core integration point a commit reached master
-	integrated-by = !"do_ib(){ OBJ=\"$1\"; [ \"$1\" = \"\" ] && echo \"Ref not provided.\" && exit 1; git log --oneline --reverse --decorate --ancestry-path \"$OBJ..origin/master\" | grep -ao 'tag: core-integration-[[:digit:]]\\+' | head -n 1 | sed 's/tag: //'; }; do_ib"
 	# Rebase shorthands. Combines well with config --global rebase.autosquash true
 	rb = rebase -i
 	rbmb = !git rebase -i $(git merge-base origin/master HEAD)
 	rbm = rebase -i origin/master
+	rbd = rebase -i origin/develop
 	rbu = rebase -i @{u}
 	# -uno excludes untracked files
 	st = status -uno
@@ -52,11 +51,15 @@
 	# diff/log against tracked upstream branch
 	udiff = diff @{u}
 	ulog = log @{u}..
+	lol = log --pretty=oneline --abbrev-commit --graph --decorate --all
 [push]
 	default = tracking
 [branch]
 	autosetuprebase = remote
-[reviewboard]
-	url = http://codereview.oslo.osa
 [rebase]
 	autosquash = true
+[remote "origin"]
+	fetch = refs/heads/*:refs/remotes/origin/*
+	fetch = refs/tags/*:refs/tags/*
+[pull]
+	rebase = true
