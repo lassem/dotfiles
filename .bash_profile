@@ -62,6 +62,20 @@ export MAVEN_HOME=/usr
 case "$TERM" in
     xterm-*color) color_prompt=yes;;
 esac
+
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+	platform='linux'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+    platform='mac'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+	platform='freebsd'
+fi
+
+if [ "$platform" == "mac" ]; then
+	color_prompt=no
+fi
     
 if [ "$color_prompt" = yes ]; then
     echo -en "\033]P0000000" #black
