@@ -35,6 +35,7 @@
 	df = diff
 	lg = log -p
 	age = "log -1 --pretty=format:\"%ar\""
+	alias = !git config --list | grep alias
 	amend = commit --amend
 	# When "your branch is behind 'origin/whatever' by N commits, and can be fast-forwarded."
 	fast-forward = merge --ff-only @{u}
