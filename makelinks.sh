@@ -1,6 +1,6 @@
 #!/bin/sh
 DIR="$( cd "$( dirname "$0" )" && pwd )"
-ln -fs $DIR/.bash_profile ~/.bash_profile
-ln -fs $DIR/.bashrc ~/.bashrc
-ln -fs $DIR/.vim ~/.vim
-ln -fs $DIR/.gitconfig ~/.gitconfig
+ln -fs $HOME/.dotfiles/.bash_profile ~/.bash_profile
+ln -fs $HOME/.dotfiles/.bashrc ~/.bashrc
+ln -fs $HOME/.dotfiles/.vim ~/.vim
+ln -fs $HOME/.dotfiles/.gitconfig ~/.gitconfig
