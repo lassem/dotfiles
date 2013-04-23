@@ -25,8 +25,9 @@
 	crapwhitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	autocrlf = input
 	preloadindex = true
-	excludesfile = $HOME/.myprofile/.gitignore_global
+	excludesfile = ~/.myprofile/.gitignore_global
 [alias]
+    b  = branch
 	cp = cherry-pick
 	st = status
 	ci = commit
@@ -36,6 +37,7 @@
 	lg = log -p
 	age = "log -1 --pretty=format:\"%ar\""
 	alias = !git config --list | grep alias
+	ed = !vi $HOME/.gitconfig
 	amend = commit --amend
 	# When "your branch is behind 'origin/whatever' by N commits, and can be fast-forwarded."
 	fast-forward = merge --ff-only @{u}
@@ -46,6 +48,9 @@
 	rbm = rebase -i origin/master
 	rbd = rebase -i origin/develop
 	rbu = rebase -i @{u}
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbs = rebase --skip
 	# -uno excludes untracked files
 	st = status -uno
 	sta = status
@@ -53,6 +58,8 @@
 	udiff = diff @{u}
 	ulog = log @{u}..
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate --all
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	ll= l --all --since=1.days.ago --author=lasse
 [push]
 	default = tracking
 [branch]
@@ -66,3 +73,5 @@
 	rebase = true
 [credential]
 	helper = cache
+[log]
+	decorate = full

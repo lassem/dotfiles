@@ -58,6 +58,7 @@ export HISTSIZE=5000
 export CLICOLOR=1
 export PS1='\[\033[0;32m\]\u@\h\[\033[0m\]:\[\033[34m\]\w\[\033[0m\]\$ '
 export MAVEN_HOME=/usr
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 case "$TERM" in
     xterm-*color) color_prompt=yes;;
