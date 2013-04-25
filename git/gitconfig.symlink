@@ -1,9 +1,5 @@
-[github]
-	user = lassem
-	token = 2de4506a7cddcac0bf07f6d9b5829279
-[user]
-	name = Lasse Magnussen
-	email = lasse.magnussen@finn.no
+[include]
+    path = ~/.gitconfig.local
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -72,6 +68,6 @@
 [pull]
 	rebase = true
 [credential]
-	helper = cache
+	helper = osxkeychain
 [log]
 	decorate = full
