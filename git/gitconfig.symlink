@@ -21,7 +21,7 @@
 	crapwhitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	autocrlf = input
 	preloadindex = true
-	excludesfile = ~/.dotfiles/.gitignore_global
+	excludesfile = ~/.gitignore
 [alias]
     b  = branch
 	cp = cherry-pick
