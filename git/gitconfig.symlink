@@ -1,5 +1,5 @@
 [include]
-    path = ~/.gitconfig.local
+ 	path = ~/.gitconfig.local
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -23,7 +23,7 @@
 	preloadindex = true
 	excludesfile = ~/.gitignore
 [alias]
-    b  = branch
+	b  = branch
 	cp = cherry-pick
 	st = status
 	ci = commit
@@ -33,7 +33,7 @@
 	lg = log -p
 	age = "log -1 --pretty=format:\"%ar\""
 	alias = !git config --list | grep alias
-	ed = !vi $HOME/.gitconfig
+	ed = !vi ~/.gitconfig
 	amend = commit --amend
 	# When "your branch is behind 'origin/whatever' by N commits, and can be fast-forwarded."
 	fast-forward = merge --ff-only @{u}

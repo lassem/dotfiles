@@ -23,6 +23,7 @@ colorscheme herald
 let mapleader = ","   " Use , as <leader> (default \).
 set cursorline        " Highlight the line where the cursor is
 set scrolloff=3       " Try to keep three lines visible on top/bottom when scrolling
+set rtp+=/Users/lasmagnu/src/powerline/powerline/bindings/vim.py
 
 if has("gui_running")
  "set guifont=ProggyCleanTT:h11
@@ -58,6 +59,21 @@ function! Detect_space_or_tab()
 	end
 endfunction
 
+" Make OS X clipboard work properly
+if &term =~ "xterm.*"
+	let &t_ti = &t_ti . "\e[?2004h"
+    let &t_te = "\e[?2004l" . &t_te
+	function XTermPasteBegin(ret)
+	   	 set pastetoggle=<Esc>[201~
+ 	 	  set paste
+  		  return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+endif
+
 " Make markdown header and subheader with ,1 and ,2
 map <silent> <leader>1 yyp:s/./-<CR>
 map <silent> <leader>2 yyp:s/./=<CR>
@@ -75,6 +91,11 @@ nmap <leader>p :.!python<CR>
 vmap <leader>p :!python<CR>
 " Open this file with ,v
 nmap <leader>v :exe ":e " . g:_vimrcpath . "/vimrc.vim"<CR>
+" Preserve indentation while pasting text from the OS X clipboard
+noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
+" Yank text to the OS X clipboard
+noremap <leader>y "*y
+noremap <leader>yy "*Y
 
 
 " bookmarks:
