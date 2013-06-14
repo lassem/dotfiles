@@ -31,6 +31,7 @@
 	co = checkout
 	df = diff
 	lg = log -p
+	pp = !git pull && git push
 	age = "log -1 --pretty=format:\"%ar\""
 	alias = !git config --list | grep alias
 	ed = !vi ~/.gitconfig
@@ -55,7 +56,7 @@
 	ulog = log @{u}..
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate --all
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	ll= l --all --since=1.days.ago --author=lasse
+	ll= !git l --all --since=1.days.ago --author=lasmagnu
 [push]
 	default = tracking
 [branch]
