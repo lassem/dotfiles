@@ -40,6 +40,7 @@ autocmd! BufNewFile,BufRead *.pde   setf arduino   " To get syntax highlighting 
 autocmd! BufNewFile,BufRead *.ot    setf selftest  " To get syntax highlighting for Opera selftests
 autocmd! BufNewFile,BufRead *.mkd   setf mkd       " To get syntax highlighting for markdown
 autocmd! BufRead,BufNewFile *.json  setf json
+autocmd! BufNewFile,BufRead *.gradle setf groovy
 
 " Hack to get the path where this file is stored.
 " If you are reading this and know a better way, let me know!
