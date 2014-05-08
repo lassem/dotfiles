@@ -17,13 +17,14 @@ alias bar='echo -e "\033[1;33;44m===============================================
 alias du='du -h'
 alias df='df -h'
 
+export HOMEBREW_GITHUB_API_TOKEN=c6a51d58958ff57631a511a78936c147a589b5e3
 export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
 export CLICOLOR=1
 export PS1='\[\033[0;32m\]\u@\h\[\033[0m\]:\[\033[34m\]\w\[\033[0m\]\$ '
 export MAVEN_HOME=/usr/local
 export JAVA_HOME=$(/usr/libexec/java_home)
-export ANDROID_HOME=$HOME/Development/sdk
+export ANDROID_HOME=/usr/local/var/lib/android-sdk
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export GYP_GENERATORS='ninja'
 export LESS='-R'
@@ -35,8 +36,8 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'     # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'            # end underline
 export LESS_TERMCAP_us=$'\E[04;33;146m'    # begin underline is now yellow
 
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-PATH=$PATH:$HOME/.rvm/bin:$HOME/src/depot_tools # Add RVM to PATH for scripting
+export PATH=/usr/local/bin:/usr/local/opt/ruby/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/.rvm/bin:$HOME/src/depot_tools # Add RVM to PATH for scripting
 
 case "$TERM" in
     xterm-*color) color_prompt=yes;;
