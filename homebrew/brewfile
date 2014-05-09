@@ -1,0 +1,50 @@
+update
+upgrade
+
+tap homebrew/dupes
+
+install grc
+install coreutils
+# install spark
+install wget
+install git
+install maven
+install node
+
+tap phinze/homebrew-cask
+install brew-cask
+tap caskroom/versions
+
+# cask install android-studio-bundle
+cask install intellij-idea-ultimate-eap
+# cask install firefox-aurora
+cask install google-chrome
+# cask install google-chrome-canary
+# cask install cyberduck
+cask install dropbox
+cask install iterm2-nightly
+cask install the-unarchiver
+# cask install bettertouchtool
+# cask install imageoptim
+cask install cd-to
+cask install cheatsheet
+cask install atom
+# cask install gitx
+# cask install sourcetree
+cask install moom
+cask install hipchat
+cask install macvim
+cask install spotify
+cask install skype
+cask install synergy
+# cask install forklift
+# cask install jottacloud
+# cask install jumpcut
+# cask install monotony
+# cask install evernote
+# cask install skitchp
+cask install todoist
+
+# tap caskroom/fonts
+# cask install font-inconsolata
+# cask install font-inconsolata-dz-for-powerline
