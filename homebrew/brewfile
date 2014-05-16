@@ -32,6 +32,7 @@ cask install atom
 # cask install gitx
 # cask install sourcetree
 cask install moom
+# cask install slate
 cask install hipchat
 cask install macvim
 cask install spotify

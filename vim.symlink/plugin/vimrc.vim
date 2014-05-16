@@ -32,6 +32,8 @@ if has("gui_running")
  winpos 270 0
 endif
 
+autocmd  FileType json setlocal equalprg=python\ -m\ json.tool
+autocmd  FileType xml  setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null " Reformat XML
 autocmd! FileType python                           " Remove all python autocmds
 autocmd  FileType python set suffixesadd+=.py       " Make 'gf' work on python import statements
 autocmd  FileType python set omnifunc=pythoncomplete#Complete " Omnicomplete with CTRL+x CTRL+o
