@@ -17,7 +17,6 @@ alias bar='echo -e "\033[1;33;44m===============================================
 alias du='du -h'
 alias df='df -h'
 
-export HOMEBREW_GITHUB_API_TOKEN=c6a51d58958ff57631a511a78936c147a589b5e3
 export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
 export CLICOLOR=1
@@ -26,6 +25,7 @@ export MAVEN_HOME=/usr/local
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 export ANDROID_HOME=/usr/local/var/lib/android-sdk
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+export HOMEBREW_GITHUB_API_TOKEN=c6a51d58958ff57631a511a78936c147a589b5e3
 export GYP_GENERATORS='ninja'
 export LESS='-R'
 export LESSOPEN='|~/.lessfilter %s'
