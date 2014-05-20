@@ -8,7 +8,9 @@ install coreutils
 # install spark
 install wget
 install git
+install bash-completion
 install maven
+install gradle
 install node
 
 tap phinze/homebrew-cask
