@@ -17,6 +17,7 @@ tap caskroom/versions
 
 # cask install android-studio-bundle
 cask install intellij-idea-ultimate-eap
+cask install java7
 # cask install firefox-aurora
 cask install google-chrome
 # cask install google-chrome-canary
