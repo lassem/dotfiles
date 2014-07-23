@@ -3,6 +3,10 @@ if [ -e /etc/bash.bashrc ] ; then
   source /etc/bash.bashrc
 fi
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
 # source the users bashrc if it exists
 if [ -e "${HOME}/.bashrc" ] ; then
   source "${HOME}/.bashrc"
