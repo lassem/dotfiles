@@ -13,13 +13,13 @@ install maven
 install gradle
 install node
 
-tap phinze/homebrew-cask
-install brew-cask
+install caskroom/cask/brew-cask
 tap caskroom/versions
 
-# cask install android-studio-bundle
-cask install intellij-idea-ultimate-eap
+cask install android-studio-bundle
+cask install intellij-idea
 cask install java7
+cask install java
 # cask install firefox-aurora
 cask install google-chrome
 # cask install google-chrome-canary

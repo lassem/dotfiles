@@ -47,6 +47,17 @@ link_files () {
   success "linked $1 to $2"
 }
 
+install_brew () {
+  if ! [ -f brew/install.sh ]
+  then
+    info 'installing brew'
+
+    ./brew/install.sh
+
+    success 'brew'
+  fi
+}
+
 install_dotfiles () {
   info 'installing dotfiles'
 
@@ -116,6 +127,7 @@ install_dotfiles () {
 
 setup_gitconfig
 install_dotfiles
+install_brew
 
 # If we are on a mac, lets install and setup homebrew
 if [ "$(uname -s)" == "Darwin" ]
