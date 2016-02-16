@@ -24,6 +24,7 @@ let mapleader = ","   " Use , as <leader> (default \).
 set cursorline        " Highlight the line where the cursor is
 set scrolloff=3       " Try to keep three lines visible on top/bottom when scrolling
 set rtp+=/Users/lasmagnu/src/powerline/powerline/bindings/vim.py
+set clipboard=unnamed " Yank to clipboard
 
 if has("gui_running")
  "set guifont=ProggyCleanTT:h11
@@ -43,6 +44,7 @@ autocmd! BufNewFile,BufRead *.ot    setf selftest  " To get syntax highlighting 
 autocmd! BufNewFile,BufRead *.mkd   setf mkd       " To get syntax highlighting for markdown
 autocmd! BufRead,BufNewFile *.json  setf json
 autocmd  BufNewFile,BufRead *.gradle setf groovy   " To get syntax highlighting for .gradle files
+autocmd  BufNewFile,BufRead *.cql   setf sql   " To get syntax highlighting for .gradle files
 
 " Hack to get the path where this file is stored.
 " If you are reading this and know a better way, let me know!
@@ -63,19 +65,19 @@ function! Detect_space_or_tab()
 endfunction
 
 " Make OS X clipboard work properly
-if &term =~ "xterm.*"
-	let &t_ti = &t_ti . "\e[?2004h"
-    let &t_te = "\e[?2004l" . &t_te
-	function XTermPasteBegin(ret)
-	   	 set pastetoggle=<Esc>[201~
- 	 	  set paste
-  		  return a:ret
-    endfunction
-    map <expr> <Esc>[200~ XTermPasteBegin("i")
-    imap <expr> <Esc>[200~ XTermPasteBegin("")
-    cmap <Esc>[200~ <nop>
-    cmap <Esc>[201~ <nop>
-endif
+ if &term =~ "xterm.*"
+ 	let &t_ti = &t_ti . "\e[?2004h"
+     let &t_te = "\e[?2004l" . &t_te
+ 	function! XTermPasteBegin(ret)
+ 	   	 set pastetoggle=<Esc>[201~
+  	 	  set paste
+   		  return a:ret
+     endfunction
+     map <expr> <Esc>[200~ XTermPasteBegin("i")
+     imap <expr> <Esc>[200~ XTermPasteBegin("")
+     cmap <Esc>[200~ <nop>
+     cmap <Esc>[201~ <nop>
+ endif
 
 " Make markdown header and subheader with ,1 and ,2
 map <silent> <leader>1 yyp:s/./-<CR>
@@ -95,11 +97,7 @@ vmap <leader>p :!python<CR>
 " Open this file with ,v
 nmap <leader>v :exe ":e " . g:_vimrcpath . "/vimrc.vim"<CR>
 " Preserve indentation while pasting text from the OS X clipboard
-noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
-" Yank text to the OS X clipboard
-noremap <leader>y "*y
-noremap <leader>yy "*Y
-
+" noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 
 " bookmarks:
 "   C-F2   to set

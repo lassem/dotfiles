@@ -33,6 +33,7 @@
 	lg = log -p
 	pp = !git pull && git push
 	brc = !git branch --merged | grep -v \\* | xargs git branch -D
+	ba = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	age = "log -1 --pretty=format:\"%ar\""
 	alias = !git config --list | grep alias
 	ed = !vi ~/.gitconfig
@@ -74,3 +75,14 @@
 	helper = osxkeychain
 [log]
 	decorate = full
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/1.9.8/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[rerere]
+	enabled = true
+[user]
+	name = Lasse Magnussen
+	email = lasse.magnussen@finn.no

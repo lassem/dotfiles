@@ -13,7 +13,8 @@ install maven
 install gradle
 install node
 
-install caskroom/cask/brew-cask
+tap caskroom/homebrew-cask
+install brew-cask
 tap caskroom/versions
 
 cask install android-studio-bundle
