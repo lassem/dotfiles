@@ -60,6 +60,7 @@
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ll= !git l --all --since=1.days.ago --author=lasmagnu
 	changeauthor = !git commit --amend --author=\"lasmagnu <lasse.magnussen@finn.no>\"
+	find = "!f() { git log --all -- **/$1 }"
 [push]
 	default = tracking
 [branch]
