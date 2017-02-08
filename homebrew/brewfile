@@ -9,6 +9,7 @@ brew 'bash-completion'
 brew 'git'
 brew 'coreutils'
 brew 'gist'
+brew 'google-drive'
 brew 'gradle'
 brew 'macvim', args: ['with-override-system-vim']
 brew 'maven'
