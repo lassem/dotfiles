@@ -33,6 +33,7 @@
 	lg = log -p
 	pp = !git pull && git push
 	brc = !git branch --merged | grep -v \\* | xargs git branch -D
+	brc2 = !git branch -r --merged | grep -v master | sed 's/origin\\///' | xargs -n 1 echo git push --delete origin
 	ba = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	age = "log -1 --pretty=format:\"%ar\""
 	alias = !git config --list | grep alias
@@ -87,3 +88,5 @@
 [user]
 	name = Lasse Magnussen
 	email = lasse.magnussen@finn.no
+[merge]
+	stat = true
