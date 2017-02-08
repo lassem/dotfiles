@@ -1,63 +1,34 @@
-update
-upgrade
-
-tap homebrew/dupes
-
-install grc
-install coreutils
-# install spark
-install wget
-install git
-install bash-completion
-install maven
-install gradle
-install node
-
-tap caskroom/homebrew-cask
-install brew-cask
-tap caskroom/versions
-
-cask install android-studio-bundle
-cask install intellij-idea
-cask install java7
-cask install java
-# cask install firefox-aurora
-cask install google-chrome
-# cask install google-chrome-canary
-# cask install cyberduck
-# cask install dropbox
-cask install iterm2-nightly
-cask install the-unarchiver
-# cask install bettertouchtool
-# cask install imageoptim
-cask install cd-to
-# cask install cheatsheet
-cask install atom
-# cask install gitx
-# cask install sourcetree
-cask install moom
-# cask install slate
-# cask install hipchat
-cask install macvim
-cask install macpass
-cask install spotify
-# cask install skype
-# cask install synergy
-# cask install forklift
-# cask install jottacloud
-# cask install jumpcut
-# cask install monotony
-# cask install evernote
-# cask install skitchp
-cask install todoist
-cask install virtualbox
-cask install launchcontrol
-cask install slack
-cask install hammerspoon
-cask install zeplin
-cask install itsycal
-cask install caffeine
-
-# tap caskroom/fonts
-# cask install font-inconsolata
-# cask install font-inconsolata-dz-for-powerline
+cask_args appdir: '/Applications'
+tap 'caskroom/cask'
+tap 'telemachus/brew', 'https://telemachus@bitbucket.org/telemachus/brew.git'
+tap 'homebrew/bundle'
+tap 'homebrew/core'
+tap 'homebrew/dupes'
+cask 'java'
+brew 'bash-completion'
+brew 'git'
+brew 'coreutils'
+brew 'gist'
+brew 'gradle'
+brew 'macvim', args: ['with-override-system-vim']
+brew 'maven'
+brew 'node'
+brew 'pidcat', args: ['HEAD']
+brew 'wget'
+cask 'atom'
+cask 'caffeine'
+cask 'cd-to'
+cask 'cheatsheet'
+cask 'google-chrome'
+cask 'iterm2'
+cask 'launchcontrol'
+cask 'macpass'
+cask 'milkytracker'
+cask 'moom'
+cask 'slack'
+cask 'sourcetree'
+cask 'spotify'
+cask 'synergy'
+cask 'the-unarchiver'
+cask 'todoist'
+cask 'virtualbox'
