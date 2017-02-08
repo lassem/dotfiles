@@ -48,11 +48,11 @@ link_files () {
 }
 
 install_brew () {
-  if ! [ -f brew/install.sh ]
+  if ! [ -f homebrew/install.sh ]
   then
     info 'installing brew'
 
-    ./brew/install.sh
+    ./homebrew/install.sh
 
     success 'brew'
   fi

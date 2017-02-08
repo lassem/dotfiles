@@ -8,11 +8,12 @@
 # Check for Homebrew
 if test ! $(which brew)
 then
-	ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew doctor
 fi
 
 # Install homebrew packages
-brew bundle
+brew tap Homebrew/bundle
+brew bundle --file=homebrew/brewfile
 
 exit 0
