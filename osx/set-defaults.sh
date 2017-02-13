@@ -20,7 +20,8 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 chflags nohidden ~/Library
 
 # Set a really fast key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 0
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Disable natural scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
