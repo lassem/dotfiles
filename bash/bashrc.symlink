@@ -27,6 +27,7 @@ export STUDIO_VM_OPTIONS=~/.idea.vmoptions
 export ANDROID_HOME=/usr/local/var/lib/android-sdk
 export CATALINA_HOME=~/.catalina
 export HOMEBREW_GITHUB_API_TOKEN=edaaf7efa20277879d2cc492320349667483b1da
+export HOMEBREW_EDITOR=vim
 export GYP_GENERATORS='ninja'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANDROID_HOME/tools/lib
 export LESS='-R'
@@ -43,6 +44,10 @@ export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$HOME/.rvm/bin:$HOME/src/depot_tools # Add RVM to PATH for scripting
 export PATH=/opt/finnbuild/latest/bin:$PATH
 export PATH=$PATH:/Applications/VICE/tools
+#export PATH=$HOME/.rbenv/bin:$PATH
+
+export TTC_REPOS=~/src
+export TTC_WEATHER=Oslo
 
 case "$TERM" in
     xterm-*color) color_prompt=yes;;
@@ -106,3 +111,6 @@ function precmd {
 }
 
 export PROMPT_COMMAND=precmd
+
+# added by travis gem
+[ -f /Users/lasmagnu/.travis/travis.sh ] && source /Users/lasmagnu/.travis/travis.sh

@@ -42,6 +42,7 @@
 	# When "your branch is behind 'origin/whatever' by N commits, and can be fast-forwarded."
 	fast-forward = merge --ff-only @{u}
 	fixup = commit --fixup
+	po = !git push -u origin `git rev-parse --abbrev-ref HEAD`
 	# Rebase shorthands. Combines well with config --global rebase.autosquash true
 	rb = rebase -i
 	rbmb = !git rebase -i $(git merge-base origin/master HEAD)
@@ -57,6 +58,7 @@
 	# diff/log against tracked upstream branch
 	udiff = diff @{u}
 	ulog = log @{u}..
+	changelog = log --cherry-pick --pretty=oneline --abbrev-commit --graph --decorate
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate --all
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ll= !git l --all --since=1.days.ago --author=lasmagnu
@@ -81,7 +83,7 @@
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /opt/homebrew-cask/Caskroom/sourcetree/1.9.8/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [rerere]
 	enabled = true
@@ -90,3 +92,5 @@
 	email = lasse.magnussen@finn.no
 [merge]
 	stat = true
+[fetch]
+	prune = true
