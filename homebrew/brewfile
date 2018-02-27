@@ -1,36 +1,45 @@
-cask_args appdir: '/Applications'
-tap 'caskroom/cask'
-tap 'telemachus/brew', 'https://telemachus@bitbucket.org/telemachus/brew.git'
-tap 'homebrew/bundle'
-tap 'homebrew/core'
-tap 'homebrew/dupes'
-cask 'java'
-brew 'bash-completion'
-brew 'git'
-brew 'coreutils'
-brew 'gist'
-brew 'google-drive'
-brew 'gradle'
-brew 'macvim', args: ['with-override-system-vim']
-brew 'maven'
-brew 'node'
-brew 'pidcat', args: ['HEAD']
-brew 'wget'
-cask 'atom'
-cask 'caffeine'
-cask 'cd-to'
-cask 'cheatsheet'
-cask 'google-chrome'
-cask 'iterm2'
-cask 'launchcontrol'
-cask 'macpass'
-cask 'messenger'
-cask 'milkytracker'
-cask 'moom'
-cask 'slack'
-cask 'sourcetree'
-cask 'spotify'
-cask 'synergy'
-cask 'the-unarchiver'
-cask 'todoist'
-cask 'virtualbox'
+cask_args appdir: "/Applications"
+tap "caskroom/cask"
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "homebrew/dupes"
+cask "java"
+brew "bash-completion"
+brew "cloc"
+brew "coreutils"
+brew "gdbm"
+brew "gettext"
+brew "gist"
+brew "git"
+brew "gradle"
+brew "jid"
+brew "kotlin"
+brew "macvim", args: ["with-override-system-vim"]
+brew "maven"
+brew "node"
+brew "pidcat", args: ["HEAD"]
+brew "rbenv"
+brew "wget"
+cask "atom"
+cask "caffeine"
+cask "google-chrome"
+cask "google-drive"
+cask "intellij-idea"
+cask "iterm2"
+cask "java8"
+cask "launchcontrol"
+cask "messenger"
+cask "milkytracker"
+cask "moom"
+cask "postman"
+cask "sketch"
+cask "slack"
+cask "sourcetree"
+cask "spotify"
+cask "sublime-text"
+cask "switchresx"
+cask "synergy"
+cask "the-unarchiver"
+cask "tunnelblick"
+cask "virtualbox"
+cask "zeplin"
