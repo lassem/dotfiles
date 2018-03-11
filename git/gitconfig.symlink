@@ -37,6 +37,8 @@
 	ba = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	age = "log -1 --pretty=format:\"%ar\""
 	alias = !git config --list | grep alias
+	ob = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(authorname) %(refname:short)'
+	obo = !git for-each-ref --sort=-committerdate refs/origin/ --format='%(committerdate:short) %(authorname) %(refname:short)'
 	ed = !vi ~/.gitconfig
 	amend = commit --amend
 	# When "your branch is behind 'origin/whatever' by N commits, and can be fast-forwarded."
@@ -73,6 +75,7 @@
 [remote "origin"]
 	fetch = refs/heads/*:refs/remotes/origin/*
 	fetch = refs/tags/*:refs/tags/*
+	prune = true
 [pull]
 	rebase = true
 [credential]
