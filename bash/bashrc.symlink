@@ -11,8 +11,14 @@ fi
 
 source $HOME/.dotfiles/colorize-maven.sh
 
-alias ls='ls -hF'
-alias ll='ls -l'
+if [ "$OSTYPE" == linux-gnu ]; then  # Is this the Ubuntu system?
+	alias ls='ls -hF --color'
+    alias ll='ls -Flh --group-directories-first'
+else
+	alias ls='gls -hF --color'
+    alias ll='gls -hFl --group-directories-first --color'
+fi
+
 alias bar='echo -e "\033[1;33;44m================================================================================\033[0m"'
 alias du='du -h'
 alias df='df -h'
