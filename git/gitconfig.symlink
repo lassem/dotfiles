@@ -62,7 +62,7 @@
 	ulog = log @{u}..
 	changelog = log --cherry-pick --pretty=oneline --abbrev-commit --graph --decorate
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate --all
-	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ll= !git l --all --since=1.days.ago --author=lasmagnu
 	changeauthor = !git commit --amend --author=\"lasmagnu <lasse.magnussen@finn.no>\"
 	find = "!f() { git log --all -- **/$1 }"
