@@ -25,6 +25,7 @@ alias bar='echo -e "\033[1;33;44m===============================================
 alias du='du -h'
 alias df='df -h'
 
+export QUOTING_STYLE=literal
 export EDITOR=vim
 export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
