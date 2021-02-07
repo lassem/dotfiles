@@ -21,7 +21,7 @@
 	crapwhitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	autocrlf = input
 	preloadindex = true
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/lasse/.gitignore
 [alias]
 	b  = branch
 	cp = cherry-pick
@@ -66,6 +66,8 @@
 	ll= !git l --all --since=1.days.ago --author=lasmagnu
 	changeauthor = !git commit --amend --author=\"lasmagnu <lasse.magnussen@finn.no>\"
 	find = "!f() { git log --all -- **/$1 }"
+	branch-cleanup = "!f(){ for b in $(git for-each-ref refs/heads --format=\"%(refname:short)\"); do if [[ ! $(git cherry -v origin/master $b | grep \"^+\") ]]; then git branch -D $b; fi; done };f"
+	fetch = fetch --tags
 [push]
 	default = tracking
 [branch]
@@ -73,8 +75,6 @@
 [rebase]
 	autosquash = true
 [remote "origin"]
-	fetch = refs/heads/*:refs/remotes/origin/*
-	fetch = refs/tags/*:refs/tags/*
 	prune = true
 [pull]
 	rebase = true
@@ -90,9 +90,6 @@
 	trustExitCode = true
 [rerere]
 	enabled = true
-[user]
-	name = Lasse Magnussen
-	email = lasse.magnussen@finn.no
 [merge]
 	stat = true
 [fetch]

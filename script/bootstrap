@@ -48,7 +48,7 @@ link_files () {
 }
 
 install_brew () {
-  if ! [ -f homebrew/install.sh ]
+  if test ! $(which brew)
   then
     info 'installing brew'
 
