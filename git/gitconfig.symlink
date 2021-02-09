@@ -68,6 +68,7 @@
 	find = "!f() { git log --all -- **/$1 }"
 	branch-cleanup = "!f(){ for b in $(git for-each-ref refs/heads --format=\"%(refname:short)\"); do if [[ ! $(git cherry -v origin/master $b | grep \"^+\") ]]; then git branch -D $b; fi; done };f"
 	fetch = fetch --tags
+	coi = !gci
 [push]
 	default = tracking
 [branch]
@@ -94,3 +95,5 @@
 	stat = true
 [fetch]
 	prune = true
+[init]
+	defaultBranch = main
