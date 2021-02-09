@@ -15,5 +15,4 @@ brew update
 # Install homebrew packages
 $DOTFILESDIR/homebrew/install.sh 2>&1
 
-# sudo easy_install Pygments
-
+sudo -H pip3 install Pygments
