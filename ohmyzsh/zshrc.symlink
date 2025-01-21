@@ -1,3 +1,6 @@
+[ -f ~/.iterm2_shell_integration.zsh ] && ITERM2_SQUELCH_MARK=1 source ~/.iterm2_shell_integration.zsh
+#[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -52,7 +55,7 @@ ZSH_THEME="lasse"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -99,3 +102,36 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias adbal='f() { adb shell am start -a android.intent.action.VIEW -d $1 };f'
+alias lg=lazygit
+alias ls="eza --icons --group-directories-first"
+alias ll="eza --icons --group-directories-first -l"
+
+
+function jc() {
+	$(git rev-parse --show-toplevel)/scripts/jira-create-issue.sh -s $1 -b
+}
+
+coi() {
+  local tags branches target
+  branches=$(
+    git --no-pager branch \
+      --sort=-committerdate \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=()
+    #git --no-pager tag | awk '{print "\x1b[35;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 --no-sort \
+        --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || return
+  git checkout $(awk '{print $2}' <<<"$target" )
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$PATH:/Users/lasse/Library/Python/3.11/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

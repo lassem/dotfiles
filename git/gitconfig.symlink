@@ -22,11 +22,13 @@
 	autocrlf = input
 	preloadindex = true
 	excludesfile = /Users/lasse/.gitignore
+	untrackedCache = true
 [alias]
 	b  = branch
 	cp = cherry-pick
 	st = status
 	ci = commit
+	cf = !SKIP_PREPARE_COMMIT_MSG=1 git commit
 	br = branch
 	co = checkout
 	df = diff
@@ -87,13 +89,23 @@
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [rerere]
 	enabled = true
 [merge]
 	stat = true
+	renames = true
 [fetch]
 	prune = true
 [init]
 	defaultBranch = main
+[commit]
+	template = /Users/lasse/.stCommitMsg
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+	renames = true

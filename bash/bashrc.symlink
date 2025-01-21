@@ -24,6 +24,7 @@ fi
 alias bar='echo -e "\033[1;33;44m================================================================================\033[0m"'
 alias du='du -h'
 alias df='df -h'
+alias jc="$(git rev-parse --show-toplevel)/scripts/jira-create-issue.sh -s $1 -b"
 
 export QUOTING_STYLE=literal
 export EDITOR=vim
@@ -137,3 +138,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+. "$HOME/.cargo/env"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
