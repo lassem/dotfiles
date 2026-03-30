@@ -4,7 +4,8 @@
 # --- instant basics ---
 export EDITOR=${EDITOR:-nvim}
 export VISUAL=${VISUAL:-nvim}
-export PAGER="${PAGER:-less -R}"
+export PAGER="less -R"
+export LESS="-R"
 export BAT_PAGER="${BAT_PAGER:-less -R}"
 
 # Put zsh stuff in XDG locations (keeps ~ tidy)
