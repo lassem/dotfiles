@@ -1,5 +1,9 @@
 [alias]
+	alias = config --get-regexp ^alias
 	co = checkout
+	br = branch
+	ci = commit
+	st = status
 	count = !git shortlog -sn
 [color]
 	diff = auto
@@ -21,6 +25,8 @@
 	default = simple
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
 {% if yadm.os == "Darwin" %}
 [credential]
 	helper = osxkeychain
