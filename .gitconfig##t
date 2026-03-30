@@ -1,0 +1,30 @@
+[alias]
+	co = checkout
+	count = !git shortlog -sn
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[core]
+	excludesfile = ~/.gitignore
+	editor = nvim
+[apply]
+	whitespace = nowarn
+[mergetool]
+	keepBackup = false
+[difftool]
+	prompt = false
+[help]
+	autocorrect = 1
+[push]
+	default = simple
+[pull]
+	rebase = false
+{% if yadm.os == "Darwin" %}
+[credential]
+	helper = osxkeychain
+{% endif %}
+[include]
+	# Machine-specific: name, email, work overrides. Not tracked by yadm.
+	path = ~/.gitconfig.local

@@ -1,0 +1,101 @@
+#!/bin/bash
+# yadm bootstrap — run with `yadm bootstrap` after cloning on a new machine
+set -e
+
+SYSTEM_TYPE=$(uname -s)
+
+info()    { printf "  \033[00;34m..\033[0m  %s\n" "$1"; }
+success() { printf "  \033[00;32mok\033[0m  %s\n" "$1"; }
+fail()    { printf "  \033[00;31mfail\033[0m %s\n" "$1"; exit 1; }
+
+# ---------------------------------------------------------------------------
+# gitconfig.local — set user name/email if not already configured
+# ---------------------------------------------------------------------------
+setup_gitconfig_local() {
+  local localcfg="$HOME/.gitconfig.local"
+  if [[ ! -f "$localcfg" ]]; then
+    info "Setting up ~/.gitconfig.local (not tracked by yadm)"
+    printf "  Git author name: "; read -r git_name
+    printf "  Git author email: "; read -r git_email
+    cat > "$localcfg" <<EOF
+[user]
+	name = $git_name
+	email = $git_email
+EOF
+    success "Created ~/.gitconfig.local"
+  else
+    info "~/.gitconfig.local already exists, skipping"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# macOS
+# ---------------------------------------------------------------------------
+setup_macos() {
+  info "macOS bootstrap"
+
+  if ! command -v brew &>/dev/null; then
+    info "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    success "Homebrew installed"
+  fi
+
+  info "Running brew bundle --global..."
+  brew bundle --global
+  success "Homebrew packages installed"
+}
+
+# ---------------------------------------------------------------------------
+# Linux (Arch)
+# ---------------------------------------------------------------------------
+setup_linux() {
+  info "Linux (Arch) bootstrap"
+
+  local pkgs=(starship zoxide eza fzf lazygit mise-en-place)
+  local missing=()
+  for pkg in "${pkgs[@]}"; do
+    command -v "${pkg%%-*}" &>/dev/null || missing+=("$pkg")
+  done
+
+  if [[ ${#missing[@]} -gt 0 ]]; then
+    info "Installing missing packages: ${missing[*]}"
+    if command -v yay &>/dev/null; then
+      yay -S --needed "${missing[@]}"
+    elif command -v pacman &>/dev/null; then
+      sudo pacman -S --needed "${missing[@]}"
+    else
+      fail "No package manager found (expected yay or pacman)"
+    fi
+    success "Packages installed"
+  else
+    info "All core packages already present"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Shared: mise runtimes
+# ---------------------------------------------------------------------------
+setup_mise() {
+  if command -v mise &>/dev/null && [[ -f "$HOME/.mise.toml" ]]; then
+    info "Installing mise-managed runtimes..."
+    mise install
+    success "mise runtimes installed"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Run
+# ---------------------------------------------------------------------------
+setup_gitconfig_local
+
+case "$SYSTEM_TYPE" in
+  Darwin) setup_macos ;;
+  Linux)  setup_linux ;;
+  *)      fail "Unknown OS: $SYSTEM_TYPE" ;;
+esac
+
+setup_mise
+
+echo ""
+success "Bootstrap complete."

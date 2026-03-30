@@ -1,0 +1,129 @@
+# ~/.zshrc — unified config for macOS and Linux (Arch/omarchy)
+# Managed by yadm. Edit ~/.zshrc##t, then run `yadm alt` to regenerate.
+
+# --- instant basics ---
+export EDITOR=${EDITOR:-nvim}
+export VISUAL=${VISUAL:-nvim}
+export PAGER=${PAGER:-bat}
+
+# Put zsh stuff in XDG locations (keeps ~ tidy)
+export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
+mkdir -p -- "$(dirname "$HISTFILE")"
+
+# --- macOS: homebrew (must come early for PATH) ---
+{% if yadm.os == "Darwin" %}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export HOMEBREW_EDITOR=nvim
+export HOMEBREW_CASK_OPTS="--no-quarantine"
+{% endif %}
+
+# --- history ---
+HISTSIZE=20000
+SAVEHIST=20000
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
+
+# --- usability ---
+setopt AUTO_CD
+setopt INTERACTIVE_COMMENTS
+setopt NO_BEEP
+
+# --- completion ---
+{% if yadm.os == "Linux" %}
+[[ -d /usr/share/zsh/site-functions ]] && fpath=(/usr/share/zsh/site-functions $fpath)
+{% endif %}
+
+if command -v dircolors >/dev/null 2>&1; then
+  eval "$(dircolors -b)"
+fi
+
+autoload -Uz compinit
+_compdump="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+mkdir -p "${_compdump:h}"
+compinit -d "$_compdump"
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# --- keybindings ---
+bindkey -e
+bindkey '^[b' backward-word
+bindkey '^[f' forward-word
+
+# --- common aliases ---
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza -lh --group-directories-first --icons=auto'
+  alias la='ls -a'
+  alias ll='ls'
+  alias l='ls'
+else
+  alias ls='ls --color=auto'
+  alias ll='ls -lah --color=auto'
+  alias la='ls -A --color=auto'
+  alias l='ls -CF --color=auto'
+fi
+alias ..='cd ..'
+alias ...='cd ../..'
+alias vi=nvim
+alias lg=lazygit
+alias cat='bat --style=plain'
+
+# --- utility functions ---
+
+# fzf branch checkout
+coi() {
+  local tags branches target
+  branches=$(
+    git --no-pager branch \
+      --sort=-committerdate \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=()
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 --no-sort \
+        --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || return
+  git checkout $(awk '{print $2}' <<<"$target")
+}
+
+# jira issue create (requires scripts/jira-create-issue.sh in repo root)
+jc() {
+  $(git rev-parse --show-toplevel)/scripts/jira-create-issue.sh -s $1 -b
+}
+
+# --- prompt: starship ---
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
+# --- zoxide ---
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+# --- mise (runtime version manager) ---
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
+# --- fzf ---
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# --- optional: zsh plugins via antidote ---
+if [[ -f "$HOME/.antidote/antidote.zsh" ]]; then
+  source "$HOME/.antidote/antidote.zsh"
+  ZSH_PLUGINS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins.txt"
+  mkdir -p "${ZSH_PLUGINS_FILE:h}"
+  [[ -f "$ZSH_PLUGINS_FILE" ]] || cat > "$ZSH_PLUGINS_FILE" <<'EOF'
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
+EOF
+  antidote load < "$ZSH_PLUGINS_FILE"
+fi
+
+# --- local overrides (machine-specific, not in version control) ---
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
