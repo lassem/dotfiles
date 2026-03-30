@@ -1,35 +1,97 @@
 [alias]
-	alias = config --get-regexp ^alias
-	co = checkout
+	alias = !git config --list | grep alias
+	b  = branch
+	ba = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	br = branch
+	brc = !git branch --merged | grep -v \\* | xargs git branch -D
+	cf = !SKIP_PREPARE_COMMIT_MSG=1 git commit
+	changelog = log --cherry-pick --pretty=oneline --abbrev-commit --graph --decorate
 	ci = commit
-	st = status
+	co = checkout
+	coi = !gci
+	cp = cherry-pick
 	count = !git shortlog -sn
+	df = diff
+	ed = !nvim ~/.gitconfig##t
+	fetch = fetch --tags
+	find = "!f() { git log --all -- **/$1 }"
+	fast-forward = merge --ff-only @{u}
+	fixup = commit --fixup
+	amend = commit --amend
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg = log -p
+	ll = !git l --all --since=1.days.ago
+	lol = log --pretty=oneline --abbrev-commit --graph --decorate --all
+	ob = !git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(authorname) %(refname:short)'
+	obo = !git for-each-ref --sort=-committerdate refs/origin/ --format='%(committerdate:short) %(authorname) %(refname:short)'
+	po = !git push -u origin `git rev-parse --abbrev-ref HEAD`
+	pp = !git pull && git push
+	rb = rebase -i
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbd = rebase -i origin/develop
+	rbm = rebase -i origin/master
+	rbmb = !git rebase -i $(git merge-base origin/master HEAD)
+	rbs = rebase --skip
+	rbu = rebase -i @{u}
+	st = status -uno
+	sta = status
+	udiff = diff @{u}
+	ulog = log @{u}..
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	ui = true
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "status"]
+	added = blue bold
+	changed = red
+	untracked = cyan
 [core]
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	autocrlf = input
+	preloadindex = true
 	excludesfile = ~/.gitignore
+	untrackedCache = true
 	editor = nvim
-[apply]
-	whitespace = nowarn
-[mergetool]
-	keepBackup = false
-[difftool]
-	prompt = false
-[help]
-	autocorrect = 1
 [push]
-	default = simple
+	default = tracking
 [pull]
-	rebase = false
+	rebase = true
+[branch]
+	autosetuprebase = always
+[rebase]
+	autosquash = true
+[merge]
+	stat = true
+	renames = true
+[fetch]
+	prune = true
+[remote "origin"]
+	prune = true
+[diff]
+	renames = true
+[log]
+	decorate = full
+[rerere]
+	enabled = true
 [init]
 	defaultBranch = main
 {% if yadm.os == "Darwin" %}
 [credential]
 	helper = osxkeychain
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 {% endif %}
 [include]
 	# Machine-specific: name, email, work overrides. Not tracked by yadm.
