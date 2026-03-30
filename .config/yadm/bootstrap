@@ -44,6 +44,10 @@ setup_macos() {
   info "Running brew bundle --global..."
   brew bundle --global
   success "Homebrew packages installed"
+
+  info "Applying macOS defaults..."
+  bash "$HOME/.config/yadm/macos-defaults.sh"
+  success "macOS defaults applied"
 }
 
 # ---------------------------------------------------------------------------

@@ -87,12 +87,12 @@
 {% if yadm.os == "Darwin" %}
 [credential]
 	helper = osxkeychain
+{% endif %}
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-{% endif %}
 [include]
 	# Machine-specific: name, email, work overrides. Not tracked by yadm.
 	path = ~/.gitconfig.local

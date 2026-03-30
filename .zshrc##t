@@ -71,6 +71,9 @@ alias ...='cd ../..'
 alias vi=nvim
 alias lg=lazygit
 alias cat='bat --style=plain'
+alias du='du -h'
+alias df='df -h'
+alias adbal='f() { adb shell am start -a android.intent.action.VIEW -d $1 };f'
 
 # --- utility functions ---
 
