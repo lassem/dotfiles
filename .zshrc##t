@@ -4,7 +4,8 @@
 # --- instant basics ---
 export EDITOR=${EDITOR:-nvim}
 export VISUAL=${VISUAL:-nvim}
-export PAGER=${PAGER:-bat}
+export PAGER="${PAGER:-less -R}"
+export BAT_PAGER="${BAT_PAGER:-less -R}"
 
 # Put zsh stuff in XDG locations (keeps ~ tidy)
 export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
@@ -71,6 +72,7 @@ alias ...='cd ../..'
 alias vi=nvim
 alias lg=lazygit
 alias cat='bat --style=plain'
+alias bl='bat --paging=always'
 alias du='du -h'
 alias df='df -h'
 alias adbal='f() { adb shell am start -a android.intent.action.VIEW -d $1 };f'
