@@ -78,6 +78,12 @@ alias du='du -h'
 alias df='df -h'
 alias adbal='f() { adb shell am start -a android.intent.action.VIEW -d $1 };f'
 
+{% if yadm.os == "Linux" %}
+# Alias pbcopy and pbpaste to xsel
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+{% endif %}
+
 # --- utility functions ---
 
 # fzf branch checkout
