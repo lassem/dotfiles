@@ -53,8 +53,14 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # --- keybindings ---
 bindkey -e
+
+# Alt-based (classic Unix)
 bindkey '^[b' backward-word
 bindkey '^[f' forward-word
+
+# Ctrl+Arrow (macOS / modern muscle memory)
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
 
 # --- common aliases ---
 if command -v eza >/dev/null 2>&1; then
