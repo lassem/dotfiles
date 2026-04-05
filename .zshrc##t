@@ -62,6 +62,12 @@ bindkey '^[f' forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
+bindkey "^H" backward-delete-char        # Backspace
+bindkey "^[[3~" delete-char              # Delete key
+
+# Ctrl+Backspace → delete word backward
+bindkey "^?" backward-kill-word
+
 # --- common aliases ---
 if command -v eza >/dev/null 2>&1; then
   alias ls='eza -lh --group-directories-first --icons=auto'
