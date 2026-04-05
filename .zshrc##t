@@ -7,6 +7,8 @@ export VISUAL=${VISUAL:-nvim}
 export PAGER="less -R"
 export LESS="-R"
 export BAT_PAGER="${BAT_PAGER:-less -R}"
+export MANROFFOPT='-c'
+export MANPAGER='sh -c "col -bx | bat -l man --style=plain --paging=always"'
 
 # Put zsh stuff in XDG locations (keeps ~ tidy)
 export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
@@ -84,7 +86,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias vi=nvim
 alias lg=lazygit
-alias cat='bat --style=plain'
 alias bl='bat --paging=always'
 alias du='du -h'
 alias df='df -h'
