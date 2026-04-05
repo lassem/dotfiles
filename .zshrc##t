@@ -66,7 +66,7 @@ bindkey "^H" backward-delete-char        # Backspace
 bindkey "^[[3~" delete-char              # Delete key
 
 # Ctrl+Backspace → delete word backward
-bindkey "^?" backward-kill-word
+bindkey "^[^H" backward-kill-word
 
 # --- common aliases ---
 if command -v eza >/dev/null 2>&1; then
