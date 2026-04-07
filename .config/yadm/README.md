@@ -10,6 +10,7 @@ Personal dotfiles managed by [yadm](https://yadm.io). Supports macOS and Arch Li
 - **starship** — prompt config
 - **bat** — configured as pager and `cat` replacement
 - **Brewfile** — macOS packages (`brew bundle --global`)
+- **iTerm2** — optional custom prefs stored in `~/.config/iterm2`
 
 ## New machine setup
 
@@ -67,6 +68,9 @@ Edit the `##t` template files, not the rendered outputs:
 |-----------|-----------|
 | `~/.zshrc##t` | `~/.zshrc` |
 | `~/.zshenv##t` | `~/.zshenv` |
+| `~/.zprofile##t` | `~/.zprofile` |
+| `~/.bash_profile##t` | `~/.bash_profile` |
+| `~/.bashrc##t` | `~/.bashrc` |
 | `~/.gitconfig##t` | `~/.gitconfig` |
 
 After editing a template, regenerate:
@@ -86,5 +90,6 @@ yadm push
 ## Notes
 
 - `~/.zshrc.local` / `~/.localrc` — machine-specific overrides, never tracked
+- `~/.config/iterm2/com.googlecode.iterm2.plist` — loaded by iTerm2 when macOS defaults are applied
 - `~/.config/nvim/lua/plugins/theme.lua` — omarchy-managed symlink, excluded from yadm
 - The old symlink-based dotfiles live in `~/.dotfiles` and can be removed once you're satisfied

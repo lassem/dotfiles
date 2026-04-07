@@ -1,0 +1,8 @@
+# ~/.zprofile — sourced for login shells
+# Managed by yadm. Edit ~/.zprofile##t, then run `yadm alt` to regenerate.
+
+{% if yadm.os == "Darwin" %}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+{% endif %}

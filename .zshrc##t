@@ -14,9 +14,8 @@ export MANPAGER='sh -c "col -bx | bat -l man --style=plain --paging=always"'
 export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
 mkdir -p -- "$(dirname "$HISTFILE")"
 
-# --- macOS: homebrew (must come early for PATH) ---
+# --- macOS ---
 {% if yadm.os == "Darwin" %}
-eval "$(/opt/homebrew/bin/brew shellenv)"
 export HOMEBREW_EDITOR=nvim
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 {% endif %}
@@ -69,6 +68,10 @@ bindkey "^[[3~" delete-char              # Delete key
 
 # Ctrl+Backspace → delete word backward
 bindkey "^[^H" backward-kill-word
+
+# History search on arrow keys when plugin is available
+bindkey "^[[A" up-line-or-history
+bindkey "^[[B" down-line-or-history
 
 # --- common aliases ---
 if command -v eza >/dev/null 2>&1; then
@@ -138,16 +141,34 @@ fi
 # --- fzf ---
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# --- optional: zsh plugins via antidote ---
-if [[ -f "$HOME/.antidote/antidote.zsh" ]]; then
-  source "$HOME/.antidote/antidote.zsh"
-  ZSH_PLUGINS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins.txt"
-  mkdir -p "${ZSH_PLUGINS_FILE:h}"
-  [[ -f "$ZSH_PLUGINS_FILE" ]] || cat > "$ZSH_PLUGINS_FILE" <<'EOF'
-zsh-users/zsh-autosuggestions
-zsh-users/zsh-syntax-highlighting
-EOF
-  antidote load < "$ZSH_PLUGINS_FILE"
+# --- zsh plugins ---
+{% if yadm.os == "Darwin" %}
+if [[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+{% endif %}
+{% if yadm.os == "Linux" %}
+if [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+{% endif %}
+
+if [[ -f "$HOME/.oh-my-zsh/plugins/history-substring-search/history-substring-search.zsh" ]]; then
+  source "$HOME/.oh-my-zsh/plugins/history-substring-search/history-substring-search.zsh"
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
 fi
 
 # --- local overrides (machine-specific, not in version control) ---

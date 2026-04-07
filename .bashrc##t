@@ -1,0 +1,28 @@
+# ~/.bashrc — minimal interactive bash config
+# Managed by yadm. Edit ~/.bashrc##t, then run `yadm alt` to regenerate.
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+[[ -f "$HOME/.localrc" ]] && . "$HOME/.localrc"
+
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-nvim}"
+export PAGER="less -R"
+export LESS="-R"
+
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza -lh --group-directories-first --icons=auto'
+  alias la='ls -a'
+  alias ll='ls'
+else
+  alias ls='ls -G'
+  alias la='ls -AG'
+  alias ll='ls -lahG'
+fi
+
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+[[ -f "$HOME/.fzf.bash" ]] && . "$HOME/.fzf.bash"
+
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init bash)"
+fi

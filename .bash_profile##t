@@ -1,0 +1,10 @@
+# ~/.bash_profile — login shell bootstrap
+# Managed by yadm. Edit ~/.bash_profile##t, then run `yadm alt` to regenerate.
+
+{% if yadm.os == "Darwin" %}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{% endif %}
+
+if [[ -f "$HOME/.bashrc" ]]; then
+  . "$HOME/.bashrc"
+fi
