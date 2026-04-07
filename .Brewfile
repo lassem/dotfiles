@@ -8,8 +8,6 @@ brew "jq"
 brew "cloc"
 brew "bat"
 brew "fzf"
-brew "zsh-autosuggestions"
-brew "zsh-syntax-highlighting"
 
 # --- shell & terminal UX ---
 brew "zsh"

@@ -16,6 +16,12 @@ mkdir -p -- "$(dirname "$HISTFILE")"
 
 # --- macOS ---
 {% if yadm.os == "Darwin" %}
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 export HOMEBREW_EDITOR=nvim
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 {% endif %}
@@ -35,6 +41,13 @@ setopt INTERACTIVE_COMMENTS
 setopt NO_BEEP
 
 # --- completion ---
+{% if yadm.os == "Darwin" %}
+if command -v brew >/dev/null 2>&1; then
+  _brew_prefix=$(brew --prefix 2>/dev/null)
+  [[ -d "$_brew_prefix/share/zsh/site-functions" ]] && fpath=("$_brew_prefix/share/zsh/site-functions" $fpath)
+  unset _brew_prefix
+fi
+{% endif %}
 {% if yadm.os == "Linux" %}
 [[ -d /usr/share/zsh/site-functions ]] && fpath=(/usr/share/zsh/site-functions $fpath)
 {% endif %}
@@ -141,32 +154,10 @@ fi
 # --- fzf ---
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# --- zsh plugins ---
-{% if yadm.os == "Darwin" %}
-if [[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
-if [[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-{% endif %}
-{% if yadm.os == "Linux" %}
-if [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-elif [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
-if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-{% endif %}
-
-if [[ -f "$HOME/.oh-my-zsh/plugins/history-substring-search/history-substring-search.zsh" ]]; then
-  source "$HOME/.oh-my-zsh/plugins/history-substring-search/history-substring-search.zsh"
+# --- zsh plugins via antidote ---
+if [[ -f "$HOME/.antidote/antidote.zsh" ]]; then
+  source "$HOME/.antidote/antidote.zsh"
+  antidote load "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins.txt"
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
 fi

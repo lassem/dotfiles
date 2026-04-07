@@ -4,7 +4,7 @@ Personal dotfiles managed by [yadm](https://yadm.io). Supports macOS and Arch Li
 
 ## What's included
 
-- **zsh** — unified config with OS-specific sections (homebrew on macOS, starship, zoxide, mise, fzf, antidote)
+- **zsh** — unified config with OS-specific sections (homebrew on macOS, starship, zoxide, mise, fzf, antidote-managed plugins)
 - **nvim** — LazyVim setup
 - **git** — aliases, global gitignore, osxkeychain credential helper on macOS
 - **starship** — prompt config
@@ -66,6 +66,7 @@ Edit the `##t` template files, not the rendered outputs:
 
 | Edit this | Renders to |
 |-----------|-----------|
+| `~/.config/zsh/plugins.txt` | Antidote plugin list |
 | `~/.zshrc##t` | `~/.zshrc` |
 | `~/.zshenv##t` | `~/.zshenv` |
 | `~/.zprofile##t` | `~/.zprofile` |
@@ -90,6 +91,7 @@ yadm push
 ## Notes
 
 - `~/.zshrc.local` / `~/.localrc` — machine-specific overrides, never tracked
+- `~/.antidote` — plugin manager checkout installed by bootstrap
 - `~/.config/iterm2/com.googlecode.iterm2.plist` — loaded by iTerm2 when macOS defaults are applied
 - `~/.config/nvim/lua/plugins/theme.lua` — omarchy-managed symlink, excluded from yadm
 - The old symlink-based dotfiles live in `~/.dotfiles` and can be removed once you're satisfied

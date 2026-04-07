@@ -8,6 +8,18 @@ info()    { printf "  \033[00;34m..\033[0m  %s\n" "$1"; }
 success() { printf "  \033[00;32mok\033[0m  %s\n" "$1"; }
 fail()    { printf "  \033[00;31mfail\033[0m %s\n" "$1"; exit 1; }
 
+setup_antidote() {
+  local antidote_dir="$HOME/.antidote"
+  if [[ -f "$antidote_dir/antidote.zsh" ]]; then
+    info "Antidote already installed"
+    return
+  fi
+
+  info "Installing Antidote..."
+  git clone --depth=1 https://github.com/mattmc3/antidote.git "$antidote_dir"
+  success "Antidote installed"
+}
+
 # ---------------------------------------------------------------------------
 # gitconfig.local — set user name/email if not already configured
 # ---------------------------------------------------------------------------
@@ -45,6 +57,8 @@ setup_macos() {
   brew bundle --global
   success "Homebrew packages installed"
 
+  setup_antidote
+
   info "Applying macOS defaults..."
   bash "$HOME/.config/yadm/macos-defaults.sh"
   success "macOS defaults applied"
@@ -56,10 +70,15 @@ setup_macos() {
 setup_linux() {
   info "Linux (Arch) bootstrap"
 
-  local pkgs=(starship zoxide eza fzf lazygit mise-en-place)
+  local pkgs=(git starship zoxide eza fzf lazygit mise-en-place)
   local missing=()
+  local cmd
   for pkg in "${pkgs[@]}"; do
-    command -v "${pkg%%-*}" &>/dev/null || missing+=("$pkg")
+    case "$pkg" in
+      mise-en-place) cmd="mise" ;;
+      *) cmd="$pkg" ;;
+    esac
+    command -v "$cmd" &>/dev/null || missing+=("$pkg")
   done
 
   if [[ ${#missing[@]} -gt 0 ]]; then
@@ -75,6 +94,8 @@ setup_linux() {
   else
     info "All core packages already present"
   fi
+
+  setup_antidote
 }
 
 # ---------------------------------------------------------------------------
