@@ -105,7 +105,7 @@ alias lg=lazygit
 alias bl='bat --paging=always'
 alias du='du -h'
 alias df='df -h'
-alias adbal='f() { adb shell am start -a android.intent.action.VIEW -d $1 };f'
+adbal() { adb shell am start -a android.intent.action.VIEW -d "'$1'" }
 
 {% if yadm.os == "Linux" %}
 # Alias pbcopy and pbpaste to xsel
@@ -129,6 +129,30 @@ coi() {
     fzf --no-hscroll --no-multi -n 2 --no-sort \
         --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || return
   git checkout $(awk '{print $2}' <<<"$target")
+}
+
+# fzf worktree checkout (mirrors coi, switches main checkout to worktree's branch/commit)
+wcoi() {
+  local root target name sha branch
+  root=$(git rev-parse --show-toplevel) || return
+  target=$(
+    git worktree list | grep -v "^$root " \
+    | awk '{
+        n=split($1, p, "/"); name=p[n]
+        sha=$2
+        branch=substr($3, 2, length($3)-2)
+        printf "%s\t%s\t\033[0;34;1mworktree\033[m\t%s  (%s)\n", name, sha, name, branch
+      }' \
+    | fzf --no-hscroll --no-multi -n 4 --no-sort \
+          --ansi --with-nth=3.. \
+          --preview="git --no-pager log -150 --pretty=format:'%s' 'origin/master..{2}'") || return
+  name=$(cut -f1 <<<"$target")
+  sha=$(cut -f2 <<<"$target")
+  local locked
+  locked=$(git worktree list --porcelain | sed -n 's|^branch refs/heads/||p')
+  branch=$(git for-each-ref --points-at="$sha" --format='%(refname:short)' refs/heads/ \
+    | grep -vFxf <(echo "$locked") | head -1)
+  git checkout "${branch:-$sha}"
 }
 
 # jira issue create (requires scripts/jira-create-issue.sh in repo root)
@@ -161,6 +185,23 @@ if [[ -f "$HOME/.antidote/antidote.zsh" ]]; then
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
 fi
+
+# Re-assert toolchain precedence after shell startup hooks have mutated PATH.
+if command -v rustup >/dev/null 2>&1; then
+  export PATH="$(dirname "$(rustup which cargo)"):$PATH"
+fi
+
+for llvm_bin in \
+  /opt/homebrew/opt/llvm/bin \
+  /usr/lib/llvm-18/bin \
+  /usr/lib/llvm-17/bin \
+  /usr/lib/llvm-16/bin
+do
+  if [[ -d "$llvm_bin" ]]; then
+    export PATH="$llvm_bin:$PATH"
+    break
+  fi
+done
 
 # --- local overrides (machine-specific, not in version control) ---
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
