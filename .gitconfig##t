@@ -1,9 +1,10 @@
 [alias]
 	alias = !git config --list | grep alias
+	wtco = "!f() { wt=\"$(git rev-parse --show-toplevel)/.claude/worktrees/$1\"; [ -d \"$wt\" ] || { echo \"no worktree: $1\"; exit 1; }; sha=$(git -C \"$wt\" rev-parse HEAD); branch=$(git for-each-ref --points-at=\"$sha\" --format='%(refname:short)' refs/heads/ | while IFS= read -r b; do git worktree list --porcelain | grep -qF \"refs/heads/$b\" || { printf '%s' \"$b\"; break; }; done); git checkout \"${branch:-$sha}\"; }; f"
 	b  = branch
 	ba = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
 	br = branch
-	brc = !git branch --merged | grep -v \\* | xargs git branch -D
+	brc = !git branch --merged | grep -v \"\\*\" | grep -vxF \"$(git worktree list --porcelain | grep \"^branch \" | sed \"s|^branch refs/heads/||\")\" | xargs -r git branch -D
 	cf = !SKIP_PREPARE_COMMIT_MSG=1 git commit
 	changelog = log --cherry-pick --pretty=oneline --abbrev-commit --graph --decorate
 	ci = commit
@@ -62,7 +63,7 @@
 	untrackedCache = true
 	editor = nvim
 [push]
-	default = tracking
+	default = current
 [pull]
 	rebase = true
 [branch]
