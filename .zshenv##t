@@ -18,7 +18,7 @@ export GIT_PS1_SHOWCOLORHINTS=true
 
 # --- macOS-specific ---
 {% if yadm.os == "Darwin" %}
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export JAVA_HOME=$(/usr/libexec/java_home -v 21)
 export ANDROID_SDK_ROOT=~/Library/Android/sdk
 export ANDROID_HOME=$ANDROID_SDK_ROOT
 export CATALINA_HOME=~/.catalina
@@ -38,3 +38,22 @@ export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:~/commodore/bin
 export PATH=$PATH:~/src/depot_tools
 {% endif %}
+
+# Prefer rustup's active toolchain so cargo/rustc and installed targets share
+# the same sysroot, even if another Rust distribution is already on PATH.
+if command -v rustup >/dev/null 2>&1; then
+  export PATH="$(dirname "$(rustup which cargo)"):$PATH"
+fi
+
+# Expose LLVM tools when distributions keep them outside the default PATH.
+for llvm_bin in \
+  /opt/homebrew/opt/llvm/bin \
+  /usr/lib/llvm-18/bin \
+  /usr/lib/llvm-17/bin \
+  /usr/lib/llvm-16/bin
+do
+  if [[ -d "$llvm_bin" ]]; then
+    export PATH="$llvm_bin:$PATH"
+    break
+  fi
+done

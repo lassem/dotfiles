@@ -3,6 +3,16 @@
 
 {% if yadm.os == "Darwin" %}
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Homebrew's shellenv can put its Rust toolchain ahead of rustup.
+if command -v rustup >/dev/null 2>&1; then
+  export PATH="$(dirname "$(rustup which cargo)"):$PATH"
+fi
+
+if [[ -d /opt/homebrew/opt/llvm/bin ]]; then
+  export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+fi
+
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 {% endif %}
