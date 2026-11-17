@@ -41,9 +41,10 @@ export PATH=$PATH:~/src/depot_tools
 
 # Prefer rustup's active toolchain so cargo/rustc and installed targets share
 # the same sysroot, even if another Rust distribution is already on PATH.
-if command -v rustup >/dev/null 2>&1; then
-  export PATH="$(dirname "$(rustup which cargo)"):$PATH"
+if rustup_cargo="$(rustup which cargo 2>/dev/null)"; then
+  export PATH="$(dirname "$rustup_cargo"):$PATH"
 fi
+unset rustup_cargo
 
 # Expose LLVM tools when distributions keep them outside the default PATH.
 for llvm_bin in \

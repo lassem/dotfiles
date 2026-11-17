@@ -5,9 +5,10 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Homebrew's shellenv can put its Rust toolchain ahead of rustup.
-if command -v rustup >/dev/null 2>&1; then
-  export PATH="$(dirname "$(rustup which cargo)"):$PATH"
+if rustup_cargo="$(rustup which cargo 2>/dev/null)"; then
+  export PATH="$(dirname "$rustup_cargo"):$PATH"
 fi
+unset rustup_cargo
 
 if [[ -d /opt/homebrew/opt/llvm/bin ]]; then
   export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
