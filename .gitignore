@@ -2,7 +2,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon
+Icon
 ._*
 .Spotlight-V100
 .Trashes
@@ -16,3 +16,7 @@ Icon
 # Local env
 .env
 .env.local
+
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+.claude/worktrees/
